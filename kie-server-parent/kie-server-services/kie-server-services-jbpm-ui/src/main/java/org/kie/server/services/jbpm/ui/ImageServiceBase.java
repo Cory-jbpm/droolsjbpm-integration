@@ -135,18 +135,18 @@ public class ImageServiceBase {
             Map<Long, String> active = new HashMap<Long, String>();
             List<String> completed = new ArrayList<String>();
 
-            for (NodeInstanceDesc activeNode : activeLogs) {
-                active.put(activeNode.getId(), activeNode.getNodeId());
-
-                populateSubProcessLink(containerId, activeNode, subProcessLinks);
-            }
-
             for (NodeInstanceDesc completeNode : completedLogs) {
                 completed.add(completeNode.getNodeId());
 
                 active.remove(completeNode.getId());
 
                 populateSubProcessLink(containerId, completeNode, subProcessLinks);
+            }
+
+            for (NodeInstanceDesc activeNode : activeLogs) {
+                active.put(activeNode.getId(), activeNode.getNodeId());
+
+                populateSubProcessLink(containerId, activeNode, subProcessLinks);
             }
 
             ByteArrayInputStream svgStream = new ByteArrayInputStream(imageSVG);
